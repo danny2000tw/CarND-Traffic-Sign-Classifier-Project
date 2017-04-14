@@ -126,8 +126,17 @@ Accuracy of testing data: `0.936`
 
 Here are five German traffic signs that I found on the web:
 
+
 ![alt text][image4] ![alt text][image5] ![alt text][image6] 
 ![alt text][image7] ![alt text][image8] ![alt text][image9]
+
+Since the model I trained did not take rotations, translations and scalings of the image into account for generalization, the model might not perform well on cases such as:
+
+1. Traffic sign is not in the center of the image and did not occupy most of the image space, e.g., The new image on the left 3rd row
+2. Traffic sign with noisy background, e.g., The new image on the right 2nd row
+3. Image with low resolution after resize, e.g., The new image on the left 3rd row
+
+Furthermore, the model can predict new images better by normalizing the training data with state of the art computer vision techniques that deal with the high contrast variation and brightness difference among the images.
 
 ####Predictions
 
@@ -143,9 +152,11 @@ Here are five German traffic signs that I found on the web:
 
 The model was able to correctly guess 5 of the 6 traffic signs, which gives an accuracy of 83%. This compares favorably to the accuracy on the test set of 93.6%.
 
-It made the wrong prediction on the 4th image (No passing). Here the is the comparsion of the new image (No passing) vs Vehicles over 3.5 metric tons prohibited (in traing data set).
+The model is uncertain on making the predictions for the test image4 (50% vs 45%) and made the wrong guess on it. I randomly selected one of the images for 'Vehicles over 3.5 metric tons prohibited' to compare with the new test image. The following is the comparison of the new image (No passing) vs Vehicles over 3.5 metric tons prohibited (in training data set).
 
 ![alt text][image7] ![alt text][image10]
+
+After the testing image is resized to a lower resolution (32x32), the traffic sign now looks pretty similar to the training data of the Vehicles over 3.5 metric tons prohibited (if you don't take the red car next to black car into consideration). I think the main reason for the model to make the wrong prediction is that the process of the down sampling distorts the testing image, we can improve the model prediction by selecting a better downsampling algorithm or higher quality image.
 
 ####Softmax Probablities
 
@@ -156,6 +167,9 @@ It made the wrong prediction on the 4th image (No passing). Here the is the comp
 |     1.00    |   Caution  |
 |     0.0     |     ..     |
 
+
+The model is very confident on making the predicions for the image (close to 100%).
+
 2
 
 | Probability |      Prediction      |
@@ -163,12 +177,16 @@ It made the wrong prediction on the 4th image (No passing). Here the is the comp
 |     1.00    | Go straight or right |
 |     0.0     |          ..          |
 
+The model is very confident on making the predicions for the image (close to 100%).
+
 3
 
 | Probability | Prediction |
 |:-----------:|:----------:|
 |     1.00    |  No entry  |
 |     0.0     |     ..     |
+
+The model is very confident on making the predicions for the image (close to 100%).
 
 4
 
@@ -188,6 +206,8 @@ It made the wrong prediction on the 4th image (No passing). Here the is the comp
 |     0.01    | Speed limit (100km/h) |
 |     0.0     |           ..          |
 
+The model is very confident on making the predicions for the image (close to 100%).
+
 6
 
 | Probability |      Prediction      |
@@ -197,8 +217,7 @@ It made the wrong prediction on the 4th image (No passing). Here the is the comp
 |   0.000062  | Speed limit (70km/h) |
 |     0.0     |          ..          |
 
-
-
+The model is very confident in making the prediction for the image (close to 100%).
 
 
 
