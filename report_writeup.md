@@ -127,16 +127,53 @@ Accuracy of testing data: `0.936`
 Here are five German traffic signs that I found on the web:
 
 
-![alt text][image4] ![alt text][image5] ![alt text][image6] 
-![alt text][image7] ![alt text][image8] ![alt text][image9]
+![alt text][image4] 
+
+Lable: Caution
+
+Prediction Diffculty: Moderate, traffic sign with noisy background; imgae is jittered
+
+![alt text][image5] 
+
+Lable: Go straight or right
+
+Prediction Diffculty: Easy
+
+![alt text][image6] 
+
+Lable: No entry
+
+Prediction Diffculty: Easy
+
+![alt text][image7] 
+
+Lable: No passing
+
+Prediction Diffculty: Moderate, image is jittered and distorted after resize. Even human have difficult recognize it.
+
+![alt text][image8] 
+
+Lable: 50 km/h 
+
+Prediction Diffculty: Moderate, image is jittered and distorted after resize. Also, its off centered in the crop.
+
+![alt text][image9]
+
+Lable: 30 km/h
+
+Prediction Diffculty: Moderate, traffic sign with noisy background
+
 
 Since the model I trained did not take rotations, translations and scalings of the image into account for generalization, the model might not perform well on cases such as:
 
-1. Traffic sign is not in the center of the image and did not occupy most of the image space, e.g., The new image on the left 3rd row
-2. Traffic sign with noisy background, e.g., The new image on the right 2nd row
-3. Image with low resolution after resize, e.g., The new image on the left 3rd row
+1. Traffic sign is not in the center of the image and did not occupy most of the image space
+2. Traffic sign with noisy background
+3. Image with low resolution after resize
 
 Furthermore, the model can predict new images better by normalizing the training data with state of the art computer vision techniques that deal with the high contrast variation and brightness difference among the images.
+
+
+
 
 ####Predictions
 
