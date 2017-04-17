@@ -9,7 +9,11 @@
 [image8]: ./screen_shot/8.png
 [image9]: ./screen_shot/9.png
 [image10]: ./screen_shot/10.png
-###Data Set Summary & Exploration
+
+The goal of this project is to train a Deep Neural Network using TensorFlow to classify traffic sign with > 93% accuracy on testing dataset.
+
+
+### Data Set Summary & Exploration
 
 * The size of training set is 34799
 * The size of the validation set is 4410
@@ -42,9 +46,9 @@ Validation Data classes distribution
 ```
 
 
-###Design and Test a Model Architecture
+### Design and Test a Model Architecture
 
-####1.Data Preprocessing
+#### 1.Data Preprocessing
 I normalized the image using equation `new_pixel = (pixel - 128)/ 128` to make the entire data set have zero mean and equal variance that makes optimizer much easier to proceed numerically.
 
 Here is the image that looks like after normalization:
@@ -52,7 +56,7 @@ Here is the image that looks like after normalization:
 ![alt text][image2]
 ![alt text][image3]
 
-####2.Model Architecture
+#### 2.Model Architecture
 The model for image classification is a 7 layer Deep Neural Network with `2` convolution layer and `5` fully connected layer built on top of the LeNet.
 
 |        Layer       |                 Description                |
@@ -82,7 +86,7 @@ The model for image classification is a 7 layer Deep Neural Network with `2` con
 |       Dropout      |            Keep probability: 75%           |
 
 
-####3. Hyper Parameters
+#### 3. Hyper Parameters
 * Learning rate: 0.0005
 * Dropout Keep probability: 0.75
 * Epochs (Steps): 50
@@ -90,55 +94,92 @@ The model for image classification is a 7 layer Deep Neural Network with `2` con
 * GD optimizer: AdamOptimizer
 
 
-####4. Approach - Iterations
+#### 4. Approach - Iterations
 
-#####Baseline:
+##### Baseline:
 
 Started with the model purely using LeNet. 5-layer of Deep CNN. 
 
 Accuracy of testing data: `0.73`
 
-#####Model 1:
+##### Model 1:
 
 Made baseline model **deeper** by adding 2 more fully connected Layers.
 
 Accuracy of testing data: `0.89`
 
-#####Model 2:
+##### Model 2:
 
 Made baseline model further **deeper** by adding 3 more fully connected Layers, and that makes the entire model 10-layer deep. However, I did not get further improvement on the testing data accuracy. I also tried to lower the learning rate and to increase the Epochs, still get the similar result. The model was very accurate in predicting the training data set (0.96) but on the validation/testing data set I was not able to get above 0.93.
 
 Accuracy of testing data: `0.91`
 
-#####Model 3:
+##### Model 3:
 
 Added Dropout to mitigate over-fitting the model. With the dropout/regularization on the model, this time I was able to get the accuracy over 0.93 on the testing data set! I also have to increase the Epcohs from 15 to 50 since dropout makes model training much slower to converge.
 
 Accuracy of testing data: `0.936`
 
-#####Final model results:
+##### Final model results:
 
 * training set accuracy of `1.000`
 * validation set accuracy of `0.955`
 * test set accuracy of `0.936`
 
-###Test a Model on New Images 
+### Test a Model on New Images 
 
 Here are five German traffic signs that I found on the web:
 
 
-![alt text][image4] ![alt text][image5] ![alt text][image6] 
-![alt text][image7] ![alt text][image8] ![alt text][image9]
+![alt text][image4] 
+
+Lable: Caution
+
+Prediction Diffculty: Moderate, traffic sign with noisy background; imgae is jittered
+
+![alt text][image5] 
+
+Lable: Go straight or right
+
+Prediction Diffculty: Easy
+
+![alt text][image6] 
+
+Lable: No entry
+
+Prediction Diffculty: Easy
+
+![alt text][image7] 
+
+Lable: No passing
+
+Prediction Diffculty: Moderate, image is jittered and distorted after resize. Even human have difficult recognize it.
+
+![alt text][image8] 
+
+Lable: 50 km/h 
+
+Prediction Diffculty: Moderate, image is jittered and distorted after resize. Also, its off centered in the crop.
+
+![alt text][image9]
+
+Lable: 30 km/h
+
+Prediction Diffculty: Moderate, traffic sign with noisy background
+
 
 Since the model I trained did not take rotations, translations and scalings of the image into account for generalization, the model might not perform well on cases such as:
 
-1. Traffic sign is not in the center of the image and did not occupy most of the image space, e.g., The new image on the left 3rd row
-2. Traffic sign with noisy background, e.g., The new image on the right 2nd row
-3. Image with low resolution after resize, e.g., The new image on the left 3rd row
+1. Traffic sign is not in the center of the image and did not occupy most of the image space
+2. Traffic sign with noisy background
+3. Image with low resolution after resize
 
 Furthermore, the model can predict new images better by normalizing the training data with state of the art computer vision techniques that deal with the high contrast variation and brightness difference among the images.
 
-####Predictions
+
+
+
+#### Predictions
 
 |         Image        |                 Prediction               |
 |:--------------------:|:----------------------------------------:|
@@ -158,7 +199,7 @@ The model is uncertain on making the predictions for the test image4 (50% vs 45%
 
 After the testing image is resized to a lower resolution (32x32), the traffic sign now looks pretty similar to the training data of the Vehicles over 3.5 metric tons prohibited (if you don't take the red car next to black car into consideration). I think the main reason for the model to make the wrong prediction is that the process of the down sampling distorts the testing image, we can improve the model prediction by selecting a better downsampling algorithm or higher quality image.
 
-####Softmax Probablities
+#### Softmax Probablities
 
 1
 
